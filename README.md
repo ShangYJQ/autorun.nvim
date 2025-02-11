@@ -7,7 +7,7 @@
     { 'ShangYJQ/autorun.nvim',   opts = {} },
     { 'akinsho/toggleterm.nvim', version = "*", config = true }
 
-#安装(在lvim中)
+# 安装(在lvim中)
 
     {
         'ShangYJQ/autorun.nvim',
