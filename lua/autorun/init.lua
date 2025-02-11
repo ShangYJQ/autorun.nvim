@@ -34,7 +34,6 @@ local function run_code()
   elseif file_type == "py" then
     cmd = cmd .. " " .. conf.py_exec
   end
-
   vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
 end
 
@@ -42,8 +41,10 @@ local M = {}
 
 function M.setup(opts)
   conf = vim.tbl_deep_extend("force", defult_conf, opts or {})
-
-  vim.keymap.set("n", "<A-r>", run_code, { noremap = true, silent = true })
+  vim.api.nvim_create_user_command("autorun", run_code, {
+    desc = "Use autorun plugin to run your code",
+  })
+  -- vim.keymap.set("n", "<A-r>", run_code, { noremap = true, silent = true })
 end
 
 return M
