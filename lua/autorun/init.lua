@@ -16,7 +16,9 @@ local function check_extension(filetype)
   end
 end
 
-local function run_code()
+local M = {}
+
+function M.run_code()
   local file_path = vim.fn.expand("%:p")
   local file_type = vim.fn.expand("%:e")
   local py_path = ""
@@ -37,11 +39,9 @@ local function run_code()
   vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
 end
 
-local M = {}
-
 function M.setup(opts)
   conf = vim.tbl_deep_extend("force", defult_conf, opts or {})
-  vim.api.nvim_create_user_command("autorun", run_code, {
+  vim.api.nvim_create_user_command("Autorun", M.run_code, {
     desc = "Use autorun plugin to run your code",
   })
   -- vim.keymap.set("n", "<A-r>", run_code, { noremap = true, silent = true })
