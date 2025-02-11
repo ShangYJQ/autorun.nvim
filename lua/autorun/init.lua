@@ -9,6 +9,8 @@ local function check_extension(filetype)
   if filetype == "cpp" or
       filetype == "py" or
       filetype == "c" or
+      filetype == "java" or
+      filetype == "go" or
       filetype == "rs" then
     return true
   else
@@ -25,7 +27,7 @@ function M.run_code()
   if check_extension(file_type) then
     py_path = string.gsub(path, "init.lua$", "py/" .. file_type .. ".py")
   else
-    error("The file type must be .c .cpp .py .rust! but your is " .. file_type)
+    error("The file type must be .c .cpp .py .rust .java .go! but your is " .. file_type)
   end
   local cmd = conf.py_exec .. " " .. py_path .. " " .. file_path
 
