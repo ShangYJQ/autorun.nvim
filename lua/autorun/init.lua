@@ -44,7 +44,6 @@ function M.setup(opts)
   conf = vim.tbl_deep_extend("force", defult_conf, opts or {})
 
   vim.keymap.set("n", "<A-r>", run_code, { noremap = true, silent = true })
-  vim.keymap.set("i", "<C-q>", "<Esc>", { noremap = true, silent = true })
 end
 
 return M
