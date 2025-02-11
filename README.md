@@ -7,6 +7,22 @@
     { 'ShangYJQ/autorun.nvim',   opts = {} },
     { 'akinsho/toggleterm.nvim', version = "*", config = true }
 
+#安装(在lvim中)
+
+    {
+        'ShangYJQ/autorun.nvim',
+        dependencies = {
+          { 'akinsho/toggleterm.nvim' },
+        },
+        config = function()
+          require("autorun").setup {
+            py_exec = "python3",
+            cpp_c = "clang++",
+            c_c = "clang",
+          }
+        end
+    },
+
 # 配置
 
 1. `cpp_c`:默认为 `clang++` 你可以配置为 `g++`
