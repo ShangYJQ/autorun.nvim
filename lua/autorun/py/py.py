@@ -3,9 +3,11 @@ import subprocess
 import os
 import time
 
-# 获取文件名（不含扩展名）
+py_exec = sys.argv[2]
+
 source_file = sys.argv[1]
-filename, ext = os.path.splitext(os.path.basename(source_file))
+
+
 
 print("Start runing...")
 
@@ -13,9 +15,8 @@ print("Start runing...")
 start_time = time.time()
 
 # 运行可执行文件
-run_command = ['python ' + filename]
+run_command = [py_exec,source_file]
 run_process = subprocess.run(run_command)
-
 
 # 记录结束时间
 end_time = time.time()

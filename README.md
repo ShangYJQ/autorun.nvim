@@ -10,3 +10,5 @@
 # 配置
 
 1. `cpp_c`:默认为 `clang++` 你可以配置为 `g++`
+2. `c_c`:默认为 `clang` 你可以配置为 `gcc`
+3. `py_exec`:默认为 `python` 你可以配置为 `python3`

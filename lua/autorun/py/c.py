@@ -4,7 +4,7 @@ import os
 import time
 
 
-cpp_c = sys.argv[2]
+c_c = sys.argv[2]
 
 # 获取文件名（不含扩展名）
 source_file = sys.argv[1]
@@ -13,7 +13,7 @@ filename, ext = os.path.splitext(os.path.basename(source_file))
 print("Compiling...")
 
 # 编译 C++ 文件
-compile_command = [cpp_c,'-std=c++20', source_file, '-o', filename]
+compile_command = [c_c,'-std=c17', source_file, '-o', filename]
 compile_process = subprocess.run(compile_command, capture_output=True)
 
 if compile_process.returncode != 0:
