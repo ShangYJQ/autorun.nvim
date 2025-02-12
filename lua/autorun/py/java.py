@@ -11,4 +11,6 @@ core.compile_code(compile_command)
 
 core.run_exec_file(filename, "java")
 
+core.del_file(filename + ".clasee")
+
 core.exit()
