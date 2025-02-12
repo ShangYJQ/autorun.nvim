@@ -5,7 +5,8 @@ from core import core
 source_file = sys.argv[1]
 filename, ext = os.path.splitext(os.path.basename(source_file))
 
-filename = filename + "_tmpf"
+if os.path.exists(filename + ".class"):
+    core.del_file(filename + ".class")
 
 compile_command = ["javac", source_file]
 
