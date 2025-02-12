@@ -37,7 +37,7 @@ def run_exec_file(filename, interpreter="f"):
     else:
         run_command = [interpreter, filename]
 
-    print("====Start running====")
+    print("=======Running=======")
 
     start_time = time.time()
 
@@ -51,7 +51,7 @@ def run_exec_file(filename, interpreter="f"):
         print("Exiting...")
         sys.exit(1)
 
-    print("\nRunning finished.")
+    print("\n=======Finished======")
 
     elapsed_time = (end_time - start_time) * 1000
     print(f"Running time: {elapsed_time:.3f} ms")

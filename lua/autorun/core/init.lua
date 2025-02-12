@@ -5,6 +5,7 @@ function M.check_extension(filetype)
       filetype == "c" or
       filetype == "java" or
       filetype == "go" or
+      filetype == "lua" or
       filetype == "rs" then
     return true
   else
