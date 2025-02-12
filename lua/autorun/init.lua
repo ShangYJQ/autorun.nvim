@@ -21,7 +21,7 @@ end
 local function get_file_dir(full_path)
   local lastpos = string.find(full_path:reverse(), "/")
   if lastpos then
-    path = #full_path - lastpos + 1
+    lastpos = #full_path - lastpos + 1
     local dirpath = string.sub(full_path, 1, lastpos - 1)
     return dirpath
   else
