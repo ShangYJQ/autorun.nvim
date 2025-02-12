@@ -1,5 +1,5 @@
-local coref = require("autorun.core.lua")
-local defult_conf = require("autorun.conf.lua")
+local coref = require("autorun.core")
+local defult_conf = require("autorun.conf")
 local conf = {}
 local M = {}
 
