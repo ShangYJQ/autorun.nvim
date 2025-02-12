@@ -18,6 +18,7 @@ def del_file(filename):
 
 def compile_code(cmd):
     clear_terminal()
+    print("Compiling...")
     compile_process = subprocess.run(cmd, capture_output=True)
     if compile_process.returncode != 0:
         print("Compile error")
@@ -26,7 +27,7 @@ def compile_code(cmd):
         sys.exit(1)
     print("Compile success")
     print(compile_process.stdout.decode())
-    input("Enter any key to continue...")
+    input("Enter any char to continue...")
 
 
 def run_exec_file(filename, interpreter="f"):
@@ -37,7 +38,7 @@ def run_exec_file(filename, interpreter="f"):
     else:
         run_command = [interpreter, filename]
 
-    print("=======Running=======")
+    print("========Running========\n")
 
     start_time = time.time()
 
@@ -46,12 +47,12 @@ def run_exec_file(filename, interpreter="f"):
     end_time = time.time()
 
     if run_process.returncode != 0:
-        print("\nRun error!")
+        print("\nRunning error!")
         print(run_process.stderr.decode())
         print("Exiting...")
         sys.exit(1)
 
-    print("\n=======Finished======")
+    print("\n========Finished=======")
 
     elapsed_time = (end_time - start_time) * 1000
     print(f"Running time: {elapsed_time:.3f} ms")
