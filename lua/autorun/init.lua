@@ -1,4 +1,4 @@
-local core = require("core")
+local core = require("autorun.core")
 local defult_conf = require("autorun.conf")
 local conf = {}
 local M = {}
