@@ -18,6 +18,18 @@ local function check_extension(filetype)
   end
 end
 
+local function get_file_dir(full_path)
+  local lastpos = string.find(full_path:reverse(), "/")
+  if lastpos then
+    path = #full_path - lastpos + 1
+    local dirpath = string.sub(full_path, 1, lastpos - 1)
+    return dirpath
+  else
+    return "./"
+  end
+end
+
+
 local M = {}
 
 function M.run_code()
@@ -43,6 +55,9 @@ function M.run_code()
   elseif file_type == "py" then
     cmd = cmd .. " " .. conf.py_exec
   end
+
+  cmd = "cd " .. get_file_dir(file_path) .. " && " .. cmd
+
   vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
 end
 
