@@ -1,29 +1,16 @@
 import sys
-import subprocess
-import time
+import os
+import core
 
 source_file = sys.argv[1]
+filename, ext = os.path.splitext(os.path.basename(source_file))
 
-print("Start runing...")
+compile_command = ["go", "build", "-o", filename, source_file]
 
-# 记录开始时间
-start_time = time.time()
+core.compile_code(compile_command)
 
-# 运行可执行文件
-run_command = ["go","run",source_file]
-run_process = subprocess.run(run_command)
+core.run_exec_file(filename)
 
-# 记录结束时间
-end_time = time.time()
+core.del_file(filename)
 
-if run_process.returncode != 0:
-    print("\nRun error")
-    print(run_process.stderr.decode())
-    sys.exit(1)
-
-print("\nRun finish")
-
-# 计算程序耗时
-elapsed_time = (end_time - start_time) * 1000  # 转换为毫秒
-print(f"Run time: {elapsed_time:.3f} ms")
-
+core.exit()
