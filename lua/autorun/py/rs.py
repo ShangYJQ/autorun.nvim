@@ -1,9 +1,11 @@
 import sys
 import os
-import core
+from core import core
 
 source_file = sys.argv[1]
 filename, ext = os.path.splitext(os.path.basename(source_file))
+
+filename = filename + "_tmpf"
 
 compile_command = ["rustc", source_file, "-o", filename]
 
@@ -14,4 +16,3 @@ core.run_exec_file(filename)
 core.del_file(filename)
 
 core.exit()
-

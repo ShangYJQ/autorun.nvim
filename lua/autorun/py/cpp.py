@@ -1,10 +1,12 @@
 import sys
 import os
-import core
+from core import core
 
 cpp_c = sys.argv[2]
 source_file = sys.argv[1]
 filename, ext = os.path.splitext(os.path.basename(source_file))
+
+filename = filename + "_tmpf"
 
 compile_command = [cpp_c, "-std=c++20", source_file, "-o", filename]
 

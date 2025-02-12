@@ -9,15 +9,20 @@ def clear_terminal():
 
 
 def del_file(filename):
-    os.remove(filename)
+    try:
+        print("Removing tmp file...")
+        os.remove(filename)
+    except OSError as e:
+        print(f"Remove error: {e}")
 
 
 def compile_code(cmd):
     clear_terminal()
     compile_process = subprocess.run(cmd, capture_output=True)
     if compile_process.returncode != 0:
-        print("Compile erroe")
+        print("Compile error")
         print(compile_process.stderr.decode())
+        print("Exiting...")
         sys.exit(1)
     print("Compile success")
     print(compile_process.stdout.decode())
@@ -28,12 +33,12 @@ def run_exec_file(filename, interpreter="f"):
     clear_terminal()
     print("Start running...")
 
-    start_time = time.time()
-
     if interpreter == "f":
         run_command = ["./" + filename]
     else:
         run_command = [interpreter, filename]
+
+    start_time = time.time()
 
     run_process = subprocess.run(run_command)
 
@@ -42,13 +47,15 @@ def run_exec_file(filename, interpreter="f"):
     if run_process.returncode != 0:
         print("\nRun error")
         print(run_process.stderr.decode())
+        print("Exiting...")
         sys.exit(1)
 
-    print("\nRun finish")
+    print("\nRunning finish")
 
-    elapsed_time = (end_time - start_time) * 1000  # 转换为毫秒
-    print(f"Run time: {elapsed_time:.3f} ms")
+    elapsed_time = (end_time - start_time) * 1000
+    print(f"Running time: {elapsed_time:.3f} ms")
 
 
 def exit():
+    print("Exiting...")
     sys.exit(0)

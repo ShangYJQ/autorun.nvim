@@ -24,11 +24,16 @@ function M.run_code()
   local file_path = vim.fn.expand("%:p")
   local file_type = vim.fn.expand("%:e")
   local py_path = ""
+  
+  if file_type == "" or file_type == " " then
+    error("The file type is empty!Please check!")
+
   if check_extension(file_type) then
     py_path = string.gsub(path, "init.lua$", "py/" .. file_type .. ".py")
   else
-    error("The file type must be .c .cpp .py .rust .java .go! but your is " .. file_type)
+    error("The file type must be .c .cpp .py .rust .java .go! but your is " .. file_type .. "!")
   end
+    
   local cmd = conf.py_exec .. " " .. py_path .. " " .. file_path
 
   if file_type == "cpp" then
@@ -44,7 +49,7 @@ end
 function M.setup(opts)
   conf = vim.tbl_deep_extend("force", defult_conf, opts or {})
   vim.api.nvim_create_user_command("Autorun", M.run_code, {
-    desc = "Use autorun plugin to run your code",
+    desc = "Use autorun plugin to run your code!",
   })
   -- vim.keymap.set("n", "<A-r>", run_code, { noremap = true, silent = true })
 end

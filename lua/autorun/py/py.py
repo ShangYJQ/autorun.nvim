@@ -1,5 +1,5 @@
 import sys
-import core
+from core import core
 
 py_exec = sys.argv[2]
 
