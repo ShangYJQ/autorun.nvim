@@ -29,12 +29,23 @@ local function get_file_dir(full_path)
   end
 end
 
+local function get_file_name(full_path)
+  local lastpos = string.find(full_path:reverse(), "/")
+  if lastpos then
+    lastpos = #full_path - lastpos + 1
+    local filename = string.sub(full_path, lastpos + 1)
+    return filename
+  else
+    error("The file name is empty!")
+  end
+end
 
 local M = {}
 
 function M.run_code()
   local file_path = vim.fn.expand("%:p")
   local file_type = vim.fn.expand("%:e")
+  local file_name = get_file_name(file_path)
   local py_path = ""
 
   if file_type == "" or file_type == " " then
@@ -46,7 +57,7 @@ function M.run_code()
     error("The file type must be .c .cpp .py .rust .java .go! but your is " .. file_type .. "!")
   end
 
-  local cmd = conf.py_exec .. " " .. py_path .. " " .. file_path
+  local cmd = conf.py_exec .. " " .. py_path .. " " .. file_name
 
   if file_type == "cpp" then
     cmd = cmd .. " " .. conf.cpp_c
