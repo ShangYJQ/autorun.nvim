@@ -1,57 +1,22 @@
+local core = require("core")
 local defult_conf = require("autorun.conf")
 local conf = {}
+local M = {}
 
 local info = debug.getinfo(1, "S");
 local path = info.source
 path = string.sub(path, 2, -1)
 
-local function check_extension(filetype)
-  if filetype == "cpp" or
-      filetype == "py" or
-      filetype == "c" or
-      filetype == "java" or
-      filetype == "go" or
-      filetype == "rs" then
-    return true
-  else
-    return false
-  end
-end
-
-local function get_file_dir(full_path)
-  local lastpos = string.find(full_path:reverse(), "/")
-  if lastpos then
-    lastpos = #full_path - lastpos + 1
-    local dirpath = string.sub(full_path, 1, lastpos - 1)
-    return dirpath
-  else
-    return "./"
-  end
-end
-
-local function get_file_name(full_path)
-  local lastpos = string.find(full_path:reverse(), "/")
-  if lastpos then
-    lastpos = #full_path - lastpos + 1
-    local filename = string.sub(full_path, lastpos + 1)
-    return filename
-  else
-    error("The file name is empty!")
-  end
-end
-
-local M = {}
-
 function M.run_code()
   local file_path = vim.fn.expand("%:p")
   local file_type = vim.fn.expand("%:e")
-  local file_name = get_file_name(file_path)
+  local file_name = core.get_file_name(file_path)
   local py_path = ""
 
   if file_type == "" or file_type == " " then
     error("The file type is empty!Please check!")
   end
-  if check_extension(file_type) then
+  if core.check_extension(file_type) then
     py_path = string.gsub(path, "init.lua$", "py/" .. file_type .. ".py")
   else
     error("The file type must be .c .cpp .py .rust .java .go! but your is " .. file_type .. "!")
@@ -67,7 +32,7 @@ function M.run_code()
     cmd = cmd .. " " .. conf.py_exec
   end
 
-  cmd = "cd " .. get_file_dir(file_path) .. " && " .. cmd
+  cmd = "cd " .. core.get_file_dir(file_path) .. " && " .. cmd
 
   vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
 end

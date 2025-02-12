@@ -3,11 +3,11 @@ import os
 from core import core
 
 source_file = sys.argv[1]
-filename, ext = os.path.splitext(os.path.basename(source_file))
+filename, ext = os.path.splitext(source_file)
 
 filename = filename + "_tmpf"
 
-compile_command = ["rustc", source_file, "-o", filename]
+compile_command = ["rustc", "-W", "warnings", source_file, "-o", filename]
 
 core.compile_code(compile_command)
 

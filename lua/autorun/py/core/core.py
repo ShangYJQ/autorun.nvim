@@ -31,12 +31,13 @@ def compile_code(cmd):
 
 def run_exec_file(filename, interpreter="f"):
     clear_terminal()
-    print("Start running...")
 
     if interpreter == "f":
         run_command = ["./" + filename]
     else:
         run_command = [interpreter, filename]
+
+    print("====Start running====")
 
     start_time = time.time()
 
@@ -45,12 +46,12 @@ def run_exec_file(filename, interpreter="f"):
     end_time = time.time()
 
     if run_process.returncode != 0:
-        print("\nRun error")
+        print("\nRun error!")
         print(run_process.stderr.decode())
         print("Exiting...")
         sys.exit(1)
 
-    print("\nRunning finish")
+    print("\nRunning finished.")
 
     elapsed_time = (end_time - start_time) * 1000
     print(f"Running time: {elapsed_time:.3f} ms")

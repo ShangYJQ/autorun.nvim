@@ -4,11 +4,11 @@ from core import core
 
 c_c = sys.argv[2]
 source_file = sys.argv[1]
-filename, ext = os.path.splitext(os.path.basename(source_file))
+filename, ext = os.path.splitext(source_file)
 
 filename = filename + "_tmpf"
 
-compile_command = [c_c, "-std=c17", source_file, "-o", filename]
+compile_command = [c_c, "-Wall", "-std=c17", source_file, "-o", filename]
 
 core.compile_code(compile_command)
 
