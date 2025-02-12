@@ -24,16 +24,16 @@ function M.run_code()
   local file_path = vim.fn.expand("%:p")
   local file_type = vim.fn.expand("%:e")
   local py_path = ""
-  
+
   if file_type == "" or file_type == " " then
     error("The file type is empty!Please check!")
-
+  end
   if check_extension(file_type) then
     py_path = string.gsub(path, "init.lua$", "py/" .. file_type .. ".py")
   else
     error("The file type must be .c .cpp .py .rust .java .go! but your is " .. file_type .. "!")
   end
-    
+
   local cmd = conf.py_exec .. " " .. py_path .. " " .. file_path
 
   if file_type == "cpp" then
