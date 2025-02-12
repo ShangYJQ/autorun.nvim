@@ -1,4 +1,4 @@
-local coref = require("corefunc")
+local coref = require("autorun.corefunc")
 local defult_conf = require("autorun.conf")
 local conf = {}
 local M = {}
