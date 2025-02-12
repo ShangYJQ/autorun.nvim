@@ -1,4 +1,4 @@
-local M
+local M = {}
 function M.check_extension(filetype)
   if filetype == "cpp" or
       filetype == "py" or
