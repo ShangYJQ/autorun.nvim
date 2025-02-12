@@ -1,4 +1,4 @@
-local core = require("autorun.core")
+local coref = require("corefunc")
 local defult_conf = require("autorun.conf")
 local conf = {}
 local M = {}
@@ -10,13 +10,13 @@ path = string.sub(path, 2, -1)
 function M.run_code()
   local file_path = vim.fn.expand("%:p")
   local file_type = vim.fn.expand("%:e")
-  local file_name = core.get_file_name(file_path)
+  local file_name = coref.get_file_name(file_path)
   local py_path = ""
 
   if file_type == "" or file_type == " " then
     error("The file type is empty!Please check!")
   end
-  if core.check_extension(file_type) then
+  if coref.check_extension(file_type) then
     py_path = string.gsub(path, "init.lua$", "py/" .. file_type .. ".py")
   else
     error("The file type must be .c .cpp .py .rust .java .go! but your is " .. file_type .. "!")
@@ -32,7 +32,7 @@ function M.run_code()
     cmd = cmd .. " " .. conf.py_exec
   end
 
-  cmd = "cd " .. core.get_file_dir(file_path) .. " && " .. cmd
+  cmd = "cd " .. coref.get_file_dir(file_path) .. " && " .. cmd
 
   vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
 end
