@@ -1,5 +1,5 @@
-local coref = require("autorun.core")
-local defult_conf = require("autorun.conf")
+local coref = require("autorun.utils")
+local defult_conf = require("autorun.config")
 local conf = {}
 local M = {}
 
@@ -17,7 +17,7 @@ function M.run_code()
     error("The file type is empty!Please check!")
   end
   if coref.check_extension(file_type) then
-    py_path = string.gsub(path, "init.lua$", "py/" .. file_type .. ".py")
+    py_path = string.gsub(path, "autorun.lua$", "autorun/py/" .. file_type .. ".py")
   else
     error("The file type must be .c .cpp .py .rust .java .go .lua! but your is " .. file_type .. "!")
   end
