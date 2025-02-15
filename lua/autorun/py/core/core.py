@@ -51,7 +51,8 @@ def run_exec_file(filename, interpreter="f"):
     end_time = time.time()
 
     if run_process.returncode != 0:
-        print("\nRunning error!Please check your source code!")
+        print("\n========Error==========")
+        print("Running error! Please check your source code!")
         # print(run_process.stderr.decode())
         error_exiting()
 
