@@ -16,6 +16,11 @@ def del_file(filename):
         print(f"Remove error: {e}")
 
 
+def error_exiting():
+    print("Exiting...")
+    sys.exit(1)
+
+
 def compile_code(cmd):
     clear_terminal()
     print("Compiling...")
@@ -23,8 +28,7 @@ def compile_code(cmd):
     if compile_process.returncode != 0:
         print("Compile error")
         print(compile_process.stderr.decode())
-        print("Exiting...")
-        sys.exit(1)
+        error_exiting()
     print("Compile success")
     print(compile_process.stdout.decode())
     input("Enter any char to continue...")
@@ -47,10 +51,9 @@ def run_exec_file(filename, interpreter="f"):
     end_time = time.time()
 
     if run_process.returncode != 0:
-        print("\nRunning error!")
-        print(run_process.stderr.decode())
-        print("Exiting...")
-        sys.exit(1)
+        print("\nRunning error!Please check your source code!")
+        # print(run_process.stderr.decode())
+        error_exiting()
 
     print("\n========Finished=======")
 
