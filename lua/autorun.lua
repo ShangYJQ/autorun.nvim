@@ -1,5 +1,6 @@
 local coref = require("autorun.utils")
 local defult_conf = require("autorun.config")
+local dap_core = require("autorun.dapcore")
 local conf = {}
 local M = {}
 
@@ -37,10 +38,33 @@ function M.run_code()
   vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
 end
 
+function M.dap_code()
+  local file_path = vim.fn.expand("%:p")
+  local file_type = vim.fn.expand("%:e")
+  local file_name = coref.get_file_name(file_path)
+  local out_file_name = "autoruntmp_" .. tostring(os.time())
+  local out_file_path = coref.get_file_dir(file_path) .. "/" .. out_file_name
+
+  if not file_type == "cpp" then
+    error("The file type is not cpp!")
+  end
+
+  local cmd = conf.cpp_c .. " -g " .. file_name .. " -o " .. out_file_name
+  cmd = "cd " .. coref.get_file_dir(file_path) .. " && " .. cmd
+
+  vim.api.nvim_command(":!" .. cmd)
+
+  dap_core.cpp_dap(conf.lldb, out_file_path)
+  vim.api.nvim_command(":lua require'dap'.continue()")
+end
+
 function M.setup(opts)
   conf = vim.tbl_deep_extend("force", defult_conf, opts or {})
   vim.api.nvim_create_user_command("Autorun", M.run_code, {
     desc = "Use autorun plugin to run your code!",
+  })
+  vim.api.nvim_create_user_command("Autodap", M.dap_code, {
+    desc = "Use autorun plugin to dap your code!"
   })
   -- vim.keymap.set("n", "<A-r>", run_code, { noremap = true, silent = true })
 end
