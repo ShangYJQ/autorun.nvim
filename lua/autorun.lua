@@ -42,19 +42,21 @@ function M.dap_code()
   local file_path = vim.fn.expand("%:p")
   local file_type = vim.fn.expand("%:e")
   local file_name = coref.get_file_name(file_path)
-  local out_file_name = "autoruntmp_" .. tostring(os.time())
-  local out_file_path = coref.get_file_dir(file_path) .. "/" .. out_file_name
+  local out_file_name = file_name
+  local out_file_path = coref.get_file_dir(file_path) .. "/debug/" .. out_file_name
 
   if not file_type == "cpp" then
     error("The file type is not cpp!")
   end
+  local debug_dir = coref.get_file_dir(file_path) .. "/debug"
+  os.execute("rm -rf " .. debug_dir .. " && mkdir " .. debug_dir)
 
-  local cmd = conf.cpp_c .. " -g " .. file_name .. " -o " .. out_file_name
+  local cmd = conf.cpp_c .. " -g " .. file_name .. " -o debug/" .. out_file_name
   cmd = "cd " .. coref.get_file_dir(file_path) .. " && " .. cmd
 
   vim.api.nvim_command(":!" .. cmd)
 
-  dap_core.cpp_dap(conf.lldb, out_file_path)
+  dap_core.cpp_dap(out_file_path)
   vim.api.nvim_command(":lua require'dap'.continue()")
 end
 
