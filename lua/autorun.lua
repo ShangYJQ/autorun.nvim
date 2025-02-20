@@ -42,7 +42,7 @@ function M.dap_code()
   local file_path = vim.fn.expand("%:p")
   local file_type = vim.fn.expand("%:e")
   local file_name = coref.get_file_name(file_path)
-  local out_file_name = file_name
+  local out_file_name = tostring(os.time())
   local out_file_path = coref.get_file_dir(file_path) .. "/debug/" .. out_file_name
 
   if not file_type == "cpp" then
