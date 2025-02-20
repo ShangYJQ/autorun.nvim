@@ -51,7 +51,7 @@ function M.dap_code()
   local debug_dir = coref.get_file_dir(file_path) .. "/debug"
   os.execute("rm -rf " .. debug_dir .. " && mkdir " .. debug_dir)
 
-  local cmd = conf.cpp_c .. " -g " .. file_name .. " -o debug/" .. out_file_name
+  local cmd = conf.cpp_dap_c .. " -g " .. file_name .. " -o debug/" .. out_file_name
   cmd = "cd " .. coref.get_file_dir(file_path) .. " && " .. cmd
 
   vim.api.nvim_command(":!" .. cmd)
