@@ -23,7 +23,6 @@ function M.run_code()
   end
 
   local cmd = conf.py_exec .. " " .. py_path .. " " .. file_name
-
   if file_type == "cpp" then
     cmd = cmd .. " " .. conf.cpp_c
   elseif file_type == "c" then
@@ -37,12 +36,36 @@ function M.run_code()
   vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
 end
 
+function M.cgdb()
+  local file_path = vim.fn.expand("%:p")
+  local file_type = vim.fn.expand("%:e")
+  local file_name = coref.get_file_name(file_path)
+
+  if file_type ~= "cpp" then
+    error("The file type must be cpp!Please check!")
+  end
+
+  local py_path = string.gsub(path, "autorun.lua$", "autorun/py/cgdb.py")
+
+  local cmd = conf.py_exec .. " " .. py_path .. " " .. file_name
+
+
+  cmd = "cd " .. coref.get_file_dir(file_path) .. " && " .. cmd .. " " .. conf.cpp_c
+
+  vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
+end
+
 function M.setup(opts)
   conf = vim.tbl_deep_extend("force", defult_conf, opts or {})
   vim.api.nvim_create_user_command("Autorun", M.run_code, {
     desc = "Use autorun plugin to run your code!",
   })
- -- vim.keymap.set("n", "<A-r>", run_code, { noremap = true, silent = true })
+
+  vim.api.nvim_create_user_command("Autogdb", M.cgdb, {
+    desc = "Use cgdb to debug your cpp code!"
+  })
+
+  -- vim.keymap.set("n", "<A-r>", run_code, { noremap = true, silent = true })
 end
 
 return M

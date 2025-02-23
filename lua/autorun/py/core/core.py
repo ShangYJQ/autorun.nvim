@@ -61,6 +61,16 @@ def run_exec_file(filename, interpreter="f"):
     elapsed_time = (end_time - start_time) * 1000
     print(f"Running time: {elapsed_time:.3f} ms")
 
+def run_cgdb(filename):
+    clear_terminal()
+
+    run_command = ["cgdb",filename]
+
+    subprocess.run(run_command)
+
+
+
+
 
 def exit():
     print("Exiting...")
