@@ -55,6 +55,60 @@ function M.cgdb()
   vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
 end
 
+function M.add_test()
+  local file_path = vim.fn.expand("%:p")
+  local file_type = vim.fn.expand("%:e")
+  local file_name = coref.get_file_name(file_path)
+
+  if file_type ~= "cpp" then
+    error("The file type must be cpp!Please check!")
+  end
+
+  local py_path = string.gsub(path, "autorun.lua$", "autorun/py/function/addtest.py")
+
+  local cmd = conf.py_exec .. " " .. py_path .. " " .. file_name
+
+  cmd = "cd " .. coref.get_file_dir(file_path) .. " && " .. cmd
+
+  vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
+end
+
+function M.run_test()
+  local file_path = vim.fn.expand("%:p")
+  local file_type = vim.fn.expand("%:e")
+  local file_name = coref.get_file_name(file_path)
+
+  if file_type ~= "cpp" then
+    error("The file type must be cpp!Please check!")
+  end
+
+  local py_path = string.gsub(path, "autorun.lua$", "autorun/py/function/runtest.py")
+
+  local cmd = conf.py_exec .. " " .. py_path .. " " .. file_name .. " " .. conf.cpp_c
+
+  cmd = "cd " .. coref.get_file_dir(file_path) .. " && " .. cmd
+
+  vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
+end
+
+function M.del_test()
+  local file_path = vim.fn.expand("%:p")
+  local file_type = vim.fn.expand("%:e")
+  local file_name = coref.get_file_name(file_path)
+
+  if file_type ~= "cpp" then
+    error("The file type must be cpp!Please check!")
+  end
+
+  local py_path = string.gsub(path, "autorun.lua$", "autorun/py/function/deltest.py")
+
+  local cmd = conf.py_exec .. " " .. py_path .. " " .. file_name
+
+  cmd = "cd " .. coref.get_file_dir(file_path) .. " && " .. cmd
+
+  vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
+end
+
 function M.setup(opts)
   conf = vim.tbl_deep_extend("force", defult_conf, opts or {})
   vim.api.nvim_create_user_command("Autorun", M.run_code, {
@@ -63,6 +117,18 @@ function M.setup(opts)
 
   vim.api.nvim_create_user_command("Autogdb", M.cgdb, {
     desc = "Use cgdb to debug your cpp code!"
+  })
+
+  vim.api.nvim_create_user_command("Autoaddtest", M.add_test, {
+    desc = "Add test"
+  })
+
+  vim.api.nvim_create_user_command("Autoruntest", M.run_test, {
+    desc = "Run test"
+  })
+
+  vim.api.nvim_create_user_command("Autodeltest", M.del_test, {
+    desc = "Del all your tests"
   })
 
   -- vim.keymap.set("n", "<A-r>", run_code, { noremap = true, silent = true })
