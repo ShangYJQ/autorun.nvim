@@ -42,7 +42,7 @@ def run_exec_file(filename, interpreter="f"):
     else:
         run_command = [interpreter, filename]
 
-    print("========Running========\n")
+    print("\033[32m========Running========\033[0m\n")
 
     start_time = time.time()
 
@@ -51,12 +51,12 @@ def run_exec_file(filename, interpreter="f"):
     end_time = time.time()
 
     if run_process.returncode != 0:
-        print("\n========Error==========")
+        print("\n\033[31m========Error==========\033[0m")
         print("Running error! Please check your source code!")
         # print(run_process.stderr.decode())
         error_exiting()
 
-    print("\n========Finished=======")
+    print("\n\033[32m========Finished=======\033[0m")
 
     elapsed_time = (end_time - start_time) * 1000
     print(f"Running time: {elapsed_time:.3f} ms")
