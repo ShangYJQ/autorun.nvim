@@ -3,14 +3,15 @@ import os
 import json
 import core
 
-core.clear_terminal()
 
 source_file = sys.argv[1]
 filename, ext = os.path.splitext(source_file)
 dir_name = core.dir_name
-json_path = dir_name +'/'+ filename + ".json"
+json_path = dir_name + "/" + filename + ".json"
 json_data = {}
 
+
+core.clear_terminal()
 
 if not os.path.exists(dir_name):
     os.makedirs(dir_name)
@@ -26,12 +27,19 @@ else:
     print("Load json data")
 
 
-test_index = len(json_data) + 1
+opt = "c"
+index_num = len(json_data)
 
-json_data[test_index] = input("input your test:\n")
+while opt == "c":
+    index_num +=1
+    core.clear_terminal()
 
-with open(json_path, "w", encoding="utf-8") as file:
-    json.dump(json_data, file)
-    print("Add the data successfully!")
+    json_data[index_num] = input(f"Input data {index_num}:\n")
+
+    with open(json_path, "w", encoding="utf-8") as file:
+        json.dump(json_data, file)
+        print(f"Add the data {index_num} successfully!")
+
+    opt = input("Input c to continue add data\n")
 
 core.exit()

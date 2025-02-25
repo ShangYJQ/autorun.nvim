@@ -100,13 +100,17 @@ function M.del_test()
     error("The file type must be cpp!Please check!")
   end
 
-  local py_path = string.gsub(path, "autorun.lua$", "autorun/py/function/deltest.py")
+  local json_path = coref.get_file_dir(file_path) .. "/.testjsondata/" .. string.gsub(file_name, ".cpp", ".json")
 
-  local cmd = conf.py_exec .. " " .. py_path .. " " .. file_name
+  if io.open(json_path) == nil then
+    vim.notify("Json data can not find -> " .. json_path, vim.log.levels.INFO)
+  elseif os.remove(json_path) then
+    vim.notify("Json data has been deleted -> " .. json_path, vim.log.levels.INFO)
+  else
+    vim.notify("Json data del fail", vim.log.levels.ERROR)
+  end
 
-  cmd = "cd " .. coref.get_file_dir(file_path) .. " && " .. cmd
-
-  vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
+  -- vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
 end
 
 function M.setup(opts)
