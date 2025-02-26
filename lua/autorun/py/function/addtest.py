@@ -34,7 +34,8 @@ while opt == "c":
     index_num +=1
     core.clear_terminal()
 
-    json_data[index_num] = input(f"Input data {index_num}:\n")
+    print(f"Input data {index_num}:")
+    json_data[index_num] = core.input_eof()
 
     with open(json_path, "w", encoding="utf-8") as file:
         json.dump(json_data, file)

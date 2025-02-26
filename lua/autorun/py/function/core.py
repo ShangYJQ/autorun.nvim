@@ -68,6 +68,14 @@ def run_test(filename, index, test_input):
     print(run_process.stdout)
 
 
+def input_eof():
+    try:
+        content = sys.stdin.read()
+        return content
+    except:
+        return ""
+
+
 def exit():
     print("Exiting...")
     sys.exit(0)
