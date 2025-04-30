@@ -3,6 +3,11 @@ local defult_conf = require("autorun.config")
 local conf = {}
 local M = {}
 
+local is_win = true;
+if vim.fn.has("unix") then
+    is_win = false;
+end
+
 local info = debug.getinfo(1, "S");
 local path = info.source
 path = string.sub(path, 2, -1)
@@ -33,7 +38,11 @@ function M.run_code()
 
     cmd = "cd " .. coref.get_file_dir(file_path) .. " && " .. cmd
 
-    vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
+    if is_win then
+        cmd = coref.fix_win_path(cmd)
+    end
+
+    vim.api.nvim_command("TermExec direction=float cmd='" .. cmd .. "'")
 end
 
 function M.cgdb()
@@ -52,7 +61,11 @@ function M.cgdb()
 
     cmd = "cd " .. coref.get_file_dir(file_path) .. " && " .. cmd .. " " .. conf.cpp_c
 
-    vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
+    if is_win then
+        cmd = coref.fix_win_path(cmd)
+    end
+
+    vim.api.nvim_command("TermExec direction=float cmd='" .. cmd .. "'")
 end
 
 function M.add_test()
@@ -70,7 +83,11 @@ function M.add_test()
 
     cmd = "cd " .. coref.get_file_dir(file_path) .. " && " .. cmd
 
-    vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
+    if is_win then
+        cmd = coref.fix_win_path(cmd)
+    end
+
+    vim.api.nvim_command("TermExec direction=float cmd='" .. cmd .. "'")
 end
 
 function M.run_test()
@@ -88,7 +105,11 @@ function M.run_test()
 
     cmd = "cd " .. coref.get_file_dir(file_path) .. " && " .. cmd
 
-    vim.api.nvim_command(":TermExec direction=float cmd='" .. cmd .. "'")
+    if is_win then
+        cmd = coref.fix_win_path(cmd)
+    end
+
+    vim.api.nvim_command("TermExec direction=float cmd='" .. cmd .. "'")
 end
 
 function M.del_test()

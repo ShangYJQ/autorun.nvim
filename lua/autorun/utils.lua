@@ -35,4 +35,8 @@ function M.get_file_name(full_path)
     end
 end
 
+function M.fix_win_path(path)
+    return string.gsub(path, "/", "\\")
+end
+
 return M
