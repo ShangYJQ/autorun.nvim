@@ -42,7 +42,8 @@ function M.run_code()
         cmd = coref.fix_win_path(cmd)
     end
 
-    vim.api.nvim_command("TermExec direction=float cmd='" .. cmd .. "'")
+    -- print(cmd)
+    coref.run_cmd(cmd)
 end
 
 function M.cgdb()
@@ -65,7 +66,7 @@ function M.cgdb()
         cmd = coref.fix_win_path(cmd)
     end
 
-    vim.api.nvim_command("TermExec direction=float cmd='" .. cmd .. "'")
+    coref.run_cmd(cmd)
 end
 
 function M.add_test()
@@ -87,7 +88,7 @@ function M.add_test()
         cmd = coref.fix_win_path(cmd)
     end
 
-    vim.api.nvim_command("TermExec direction=float cmd='" .. cmd .. "'")
+    coref.run_cmd(cmd)
 end
 
 function M.run_test()
@@ -109,7 +110,7 @@ function M.run_test()
         cmd = coref.fix_win_path(cmd)
     end
 
-    vim.api.nvim_command("TermExec direction=float cmd='" .. cmd .. "'")
+    coref.run_cmd(cmd)
 end
 
 function M.del_test()

@@ -39,4 +39,8 @@ function M.fix_win_path(path)
     return string.gsub(path, "/", "\\")
 end
 
+function M.run_cmd(cmd)
+    vim.api.nvim_command("TermExec direction=float cmd=\"" .. cmd .. "\"")
+end
+
 return M
