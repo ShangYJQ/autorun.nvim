@@ -12,7 +12,7 @@ def clear_terminal():
     print("\033c", end="")
 
 
-def del_file(filename):
+def del_file(filename: str):
     try:
         print("Removing tmp file...")
         os.remove(filename)
@@ -25,7 +25,7 @@ def error_exiting():
     sys.exit(1)
 
 
-def compile_code(cmd):
+def compile_code(cmd: str):
     clear_terminal()
     print("Compiling...")
     compile_process = subprocess.run(cmd, capture_output=True)
@@ -35,10 +35,10 @@ def compile_code(cmd):
         error_exiting()
     print("Compile success")
     print(compile_process.stdout.decode())
-    input("Enter any char to continue...")
+    _ = input("Enter any char to continue...")
 
 
-def run_test(filename, index, test_input):
+def run_test(filename: str, index: int, test_input: str):
     run_command = ["./" + filename]
 
     start_time = time.time()

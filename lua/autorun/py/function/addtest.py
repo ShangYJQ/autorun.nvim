@@ -31,7 +31,7 @@ opt = "c"
 index_num = len(json_data)
 
 while opt == "c":
-    index_num +=1
+    index_num += 1
     core.clear_terminal()
 
     print(f"Input data {index_num}:")

@@ -8,7 +8,7 @@ filename, ext = os.path.splitext(source_file)
 
 filename = filename + "_tmpf"
 
-compile_command = [cpp_c, "-g", source_file, "-o", filename]
+compile_command = [cpp_c, "-g", "-O0", source_file, "-o", filename]
 
 core.compile_code(compile_command)
 
