@@ -3,7 +3,7 @@
 ## 在 `nvim` 中设置 快捷键(默认`:Autorun`) 快速运行你的，c cpp py rust go java lua代码。
 ## 请确保提前安装了`go` `java` `python` `lua` 语言环境、`c` `cpp` 编译器
 
-### 安装(使用 `lazy.vim` 插件管理器)
+### 安装(使用 `lazy.nvim` 插件管理器)
 ```lua
     {
         'ShangYJQ/autorun.nvim',
